@@ -81,16 +81,16 @@ MailApp.service('MyMails', function($http) {
   })
   .service('MyUserCarts', function($http) {
     this.getAll = () => {
-      return $http.get('http://test-api.javascript.ru/v1/avoznuk/users').then(response => response.data)
+      return $http.get('https://test-api.javascript.ru/v1/avoznuk/users').then(response => response.data)
     }
 
     this.add = (user) => {
     
-      return $http.post('http://test-api.javascript.ru/v1/avoznuk/users', user)
+      return $http.post('https://test-api.javascript.ru/v1/avoznuk/users', user)
         .then(response => response.data)
     }
     this.remove = (user) => {
-      return $http.delete('http://test-api.javascript.ru/v1/avoznuk/users/' + user._id);
+      return $http.delete('https://test-api.javascript.ru/v1/avoznuk/users/' + user._id);
     }
   })
   .component('mailbox', {
