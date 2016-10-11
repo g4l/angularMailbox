@@ -25,16 +25,16 @@ const MailApp = angular.module('myApp', []);
 MailApp.service('MyMails', function($http) {
   
     this.getAllLetters = () => {
-      return $http.get('//test-api.javascript.ru/v1/avoznuk2/letters')
+      return $http.get('https://test-api.javascript.ru/v1/avoznuk2/letters')
         .then(response => response.data)
     }
     this.getMailBoxes = () => {
-      return $http.get('//test-api.javascript.ru/v1/avoznuk2/mailboxes')
+      return $http.get('https://test-api.javascript.ru/v1/avoznuk2/mailboxes')
         .then(response => response.data)
     }
 
     this.add = (mail) => {
-      return $http.post('//test-api.javascript.ru/v1/avoznuk2/letters', mail)
+      return $http.post('https://test-api.javascript.ru/v1/avoznuk2/letters', mail)
         .then(response => response.data)
     }
   })
