@@ -1,0 +1,10 @@
+<form ng-submit="$ctrl.addMail()" class="form-group">
+    <label>Title</label>
+    <input type="text" class="form-control" placeholder="title" ng-model="$ctrl.newSubject"></input>
+    <label>To</label>
+    <input type="email" class="form-control" placeholder="To" ng-model="$ctrl.newTo"></input>
+    <label>Description</label>
+    <textarea class="form-control" placeholder="descriptions" ng-model="$ctrl.newBody"></textarea>
+    <br>
+    <button class="btn btn-success" ng-submit="$ctrl.addMail()">Ok</button>
+</form>
