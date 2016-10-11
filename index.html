@@ -2,28 +2,31 @@
 <html ng-app="myApp">
 
 <head>
-
-  <meta charset="UTF-8">
-  <title>MailBox</title>
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="./dist/styles/style.css">
-  <link rel="stylesheet" href="./dist/styles/user-cart.css">
+    <meta charset="UTF-8">
+    <title>MailBox</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./dist/styles/style.css">
+    <link rel="stylesheet" href="./dist/styles/user-cart.css">
 </head>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <mailbox></mailbox>
-      </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <mailbox></mailbox>
+            </div>
+            <div class="col-md-8">
+                <!-- <mailview ng-repeat="letter in $ctrl.letters" letter="letter"></mailview> -->
+            </div>
+            <!-- <user-cart></user-cart> -->
+        </div>
     </div>
-  </div>
-  <user-cart></user-cart>
-  <script src="//opensource.keycdn.com/angularjs/1.5.8/angular.min.js"></script>
-  <script>
-    const MailApp = angular.module('myApp', []);
-  </script>
-  <script src="./dist/scripts/scripts.js"></script>
+    <script src="//opensource.keycdn.com/angularjs/1.5.8/angular.min.js"></script>
+    <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script>
+    const MailApp = angular.module('myApp', ['ui.router']);
+    </script>
+    <script src="./dist/scripts/scripts.js"></script>
 </body>
 
 </html>
