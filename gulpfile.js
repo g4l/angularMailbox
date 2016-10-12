@@ -12,6 +12,7 @@ var browserSync = require('browser-sync').create(),
 
 gulp.task('sass', function(){
 	gulp.src("./src/styles/**/*.scss")
+	.pipe(concat('style.scss'))
 	.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
 	.pipe(gulp.dest('./dist/styles'));
 });

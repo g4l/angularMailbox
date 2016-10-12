@@ -8,8 +8,8 @@
     <br>
     <button class="btn btn-success" ng-submit="$ctrl.addMail()">Ok</button>
 </form>
-<button ui-sref="mailbox({mailboxId:mailbox._id})" class="btn btn-primary" type="button" ng-click="$ctrl.getLetters(mailbox._id)" ng-repeat="mailbox in $ctrl.mailboxes">
+<!-- <button ui-sref="mailbox({mailboxId:mailbox._id})" class="btn btn-primary" type="button" ng-click="$ctrl.getLetters(mailbox._id)" ng-repeat="mailbox in $ctrl.mailboxes">
     {{mailbox.title}}
-</button>
+</button> -->
 <br>
 <mailview ng-repeat="letter in $ctrl.letters" letter="letter"></mailview>

@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div ng-repeat="mailcategory in $ctrl.mailcategories">
+                <mailcategories mailcategory="mailcategory" getletters="$ctrl.getLetters(id)"></mailcategory>
+            </div>
+            
+            <contact-btn getcontacts="$ctrl.getAllUsers()"></contact-btn>
+        </div>
+        <div class="col-md-8">
+            <ui-view></ui-view>
+            <!-- <mailview ng-repeat="letter in $ctrl.letters" letter="letter"></mailview> -->
+
+        <!--     <div ng-repeat = "user in $ctrl.users">
+              <user-cart-item user="user" remove="$ctrl.removeUser(user)"></user-сart-item>
+            </div> -->
+        </div>
+        
+    </div>
+</div>

@@ -6,21 +6,15 @@
     <title>MailBox</title>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./dist/styles/style.css">
-    <link rel="stylesheet" href="./dist/styles/user-cart.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="row">
-            <mailbox></mailbox>
-                <!-- <mailview ng-repeat="letter in $ctrl.letters" letter="letter"></mailview> -->
-            <user-cart></user-cart>
-        </div>
-    </div>
+    <mailwrapper></mailwrapper>
+
     <script src="//opensource.keycdn.com/angularjs/1.5.8/angular.min.js"></script>
     <script src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script>
-    const MailApp = angular.module('myApp', ['ui.router']);
+        const MailApp = angular.module('myApp', ['ui.router']);
     </script>
     <script src="./dist/scripts/scripts.js"></script>
 </body>
