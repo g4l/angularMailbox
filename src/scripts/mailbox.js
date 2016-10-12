@@ -25,8 +25,9 @@ MailApp.service('MyMailBox', function($http) {
         this.remove = (user) => {
           return $http.delete('https://test-api.javascript.ru/v1/avoznuk2/users/' + user._id);
         }
-    })
-    .config(function($stateProvider) {
+    });
+
+    MailApp.config(function($stateProvider) {
         $stateProvider.state('category', {
             url: 'category/:categoryId',
             template: `
@@ -59,8 +60,9 @@ MailApp.service('MyMailBox', function($http) {
             // }
         });
 
-    })
-    .component('mailwrapper', {
+    });
+
+    MailApp.component('mailwrapper', {
         templateUrl: 'templates/mailwrapper.html',
         controller: function(MyMailBox, $http) {
 
