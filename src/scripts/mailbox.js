@@ -24,6 +24,17 @@ MailApp.service('MyMails', function($http) {
         });
 
     })
+    .config(function($stateProvider) {
+        $stateProvider.state('mailview', {
+            parent: 'mailbox',
+            url: '/:letterId',
+            template: `<mailview letter-id="letterId"/>`,
+            controller: function($stateParams, $scope) {
+                $scope.letterId = $stateParams.letterId;
+            }
+        });
+
+    })
     .component('mailbox', {
         bindings: {},
         templateUrl: 'templates/mailboxTemplate.html',
