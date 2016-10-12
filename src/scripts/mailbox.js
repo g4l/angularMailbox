@@ -42,7 +42,7 @@ MailApp.service('MyMailBox', function($http) {
         $stateProvider.state('mailview', {
             parent: 'category',
             url: '/:letterId',
-            template: `<mailview letter-id="letterId"/>`,
+            template: `<mailview letter-id="letterId" setshow="$ctrl.setShow(id)"/>`,
             controller: function($stateParams, $scope) {
                 $scope.letterId = $stateParams.letterId;
             }
@@ -126,6 +126,11 @@ MailApp.service('MyMailBox', function($http) {
               }
             };
 
+            this.setShow = (id) => {
+              this.show = id
+              console.log(this.show)
+            }
+
             this.removeUser = (user) => {
               MyMailBox.remove(user).then(() => {
                 this.users.splice(this.users.indexOf(user), 1);
@@ -144,7 +149,8 @@ MailApp.service('MyMailBox', function($http) {
     })
     .component('mailview', {
         bindings: {
-            letter: '<'
+            letter: '<',
+            setshow: '&'
         },
         templateUrl: 'templates/letterItem.html'
     })
