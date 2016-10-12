@@ -7,6 +7,7 @@ var browserSync = require('browser-sync').create(),
 	minifyCSS = require('gulp-minify-css'),
 	sass = require('gulp-sass'),
 	sourcemaps = require('gulp-sourcemaps'),
+	ngmin = require('gulp-ngmin'),
 	autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('sass', function(){
@@ -18,6 +19,10 @@ gulp.task('sass', function(){
 gulp.task('js', function(){
 	gulp.src("./src/scripts/**/*.js")
 	.pipe(concat('scripts.js'))
+	.pipe(babel({
+	    presets: ['es2015']
+	}))
+	.pipe(uglify({mangle: false}))
 	.pipe(gulp.dest('./dist/scripts'));
 });
 
