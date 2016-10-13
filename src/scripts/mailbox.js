@@ -101,7 +101,8 @@ MailApp.service('MyMailBox', function($http) {
 
             }
 
-            this.addMail = () => {
+            this.addMail = (letter) => {
+              console.log(letter)
                 let newMail = {
                     subject: this.newSubject.trim(),
                     body: this.newBody.trim(),
@@ -184,8 +185,9 @@ MailApp.service('MyMailBox', function($http) {
     })
     .component('newLetterForm', {
       bindings: {
-        newletter: '=',
-        send: '&'
+        newletter: '&',
+        send: '&',
+        modal: "<"
       },
       templateUrl: 'templates/newLetterForm.html'
     })
@@ -206,8 +208,9 @@ MailApp.service('MyMailBox', function($http) {
     })
     .component('newUserForm', {
       bindings: {
-        newletter: '=',
+        newuser: '<',
         send: '&'
+
       },
       templateUrl: 'templates/newUserForm.html'
     })
