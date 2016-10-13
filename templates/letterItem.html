@@ -1,11 +1,10 @@
 <div class="letter">
     <h4 class="title" ui-sref="mailview({letterId:$ctrl.letter._id})"  ng-click="$ctrl.setshow({id:$ctrl.letter._id})">{{$ctrl.letter.subject}}</h4>
-{{$ctrl.show}}
 	<div class="to" ng-if="$ctrl.show == $ctrl.letter._id">
 	
 	{{$ctrl.letter.to}}
 	</div>
-    <p class="desc">
+    <p class="desc" ng-if="$ctrl.show == $ctrl.letter._id">
         {{$ctrl.letter.body}}
     </p>
 </div>

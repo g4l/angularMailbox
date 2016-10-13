@@ -5,25 +5,25 @@ MailApp.service('MyMailBox', function($http) {
                 .then(response => response.data)
         }
         this.getMailCategories = () => {
-            return $http.get('https://test-api.javascript.ru/v1/avoznuk2/mailboxes')
+            return $http.get('//test-api.javascript.ru/v1/avoznuk2/mailboxes')
                 .then(response => response.data)
         }
 
         this.addLetter = (mail) => {
-            return $http.post('https://test-api.javascript.ru/v1/avoznuk2/letters', mail)
+            return $http.post('//test-api.javascript.ru/v1/avoznuk2/letters', mail)
                 .then(response => response.data)
         }
         this.getAll = () => {
-          return $http.get('https://test-api.javascript.ru/v1/avoznuk2/users').then(response => response.data)
+          return $http.get('//test-api.javascript.ru/v1/avoznuk2/users').then(response => response.data)
         }
 
         this.addUser = (user) => {
         
-          return $http.post('https://test-api.javascript.ru/v1/avoznuk2/users', user)
+          return $http.post('//test-api.javascript.ru/v1/avoznuk2/users', user)
             .then(response => response.data)
         }
         this.remove = (user) => {
-          return $http.delete('https://test-api.javascript.ru/v1/avoznuk2/users/' + user._id);
+          return $http.delete('//test-api.javascript.ru/v1/avoznuk2/users/' + user._id);
         }
     });
 
@@ -31,7 +31,7 @@ MailApp.service('MyMailBox', function($http) {
         $stateProvider.state('category', {
             url: 'category/:categoryId',
             template: `
-            <mailview category-id="categoryId" ng-repeat="letter in $ctrl.letters" letter="letter"></mailview>`,
+            <mailview category-id="categoryId" ng-repeat="letter in $ctrl.letters" letter="letter"  show="$ctrl.show" setshow="$ctrl.setShow(id)"></mailview>`,
             controller: function($stateParams, $scope) {
                 $scope.categoryId = $stateParams.categoryId;
             }
@@ -42,7 +42,7 @@ MailApp.service('MyMailBox', function($http) {
         $stateProvider.state('mailview', {
             parent: 'category',
             url: '/:letterId',
-            template: `<mailview letter-id="letterId" setshow="$ctrl.setShow(id)"/>`,
+            template: `<mailview letter-id="letterId"/>`,
             controller: function($stateParams, $scope) {
                 $scope.letterId = $stateParams.letterId;
             }
@@ -103,7 +103,7 @@ MailApp.service('MyMailBox', function($http) {
 
             this.getAllUsers = () => {
               MyMailBox.getAll().then(users => this.users = users);
-              console.log(this.users)
+              
             }
 
             this.addUser = () => {
@@ -128,7 +128,7 @@ MailApp.service('MyMailBox', function($http) {
 
             this.setShow = (id) => {
               this.show = id
-              console.log(this.show)
+              
             }
 
             this.removeUser = (user) => {
@@ -150,7 +150,8 @@ MailApp.service('MyMailBox', function($http) {
     .component('mailview', {
         bindings: {
             letter: '<',
-            setshow: '&'
+            setshow: '&',
+            show: '<'
         },
         templateUrl: 'templates/letterItem.html'
     })
