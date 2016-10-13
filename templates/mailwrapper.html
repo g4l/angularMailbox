@@ -1,6 +1,10 @@
+<new-letter-form></new-letter-form>
 <div class="container">
     <div class="row">
         <div class="col-md-4">
+        
+            <add-letter-btn></add-letter-btn>
+
             <div ng-repeat="mailcategory in $ctrl.mailcategories">
                 <mailcategories mailcategory="mailcategory" getletters="$ctrl.getLetters(id)"></mailcategory>
             </div>

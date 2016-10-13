@@ -1,10 +1,25 @@
-<form ng-submit="$ctrl.addMail()" class="form-group">
-    <label>Title</label>
-    <input type="text" class="form-control" placeholder="title" ng-model="$ctrl.newSubject"></input>
-    <label>To</label>
-    <input type="email" class="form-control" placeholder="To" ng-model="$ctrl.newTo"></input>
-    <label>Description</label>
-    <textarea class="form-control" placeholder="descriptions" ng-model="$ctrl.newBody"></textarea>
-    <br>
-    <button class="btn btn-success" ng-submit="$ctrl.addMail()">Ok</button>
-</form>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Letter</h4>
+      </div>
+      <div class="modal-body">
+       <form ng-submit="$ctrl.addMail()" class="form-group">
+           <label>Title</label>
+           <input type="text" class="form-control" placeholder="title" ng-model="$ctrl.newSubject"></input>
+           <label>To</label>
+           <input type="email" class="form-control" placeholder="To" ng-model="$ctrl.newTo"></input>
+           <label>Description</label>
+           <textarea class="form-control" placeholder="descriptions" ng-model="$ctrl.newBody"></textarea>
+       </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-success" ng-submit="$ctrl.addMail()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

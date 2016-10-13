@@ -50,14 +50,24 @@ MailApp.service('MyMailBox', function($http) {
 
     })
     .config(function($stateProvider) {
-        $stateProvider.state('userCartItem', {
+        $stateProvider.state('userCart', {
             url: 'users',
             template: `<div ng-repeat = "user in $ctrl.users">
-              <user-cart-item user="user" remove="$ctrl.removeUser(user)"></user-сart-item>
+              <user-cart-item user="user" remove="$ctrl.removeUser(user)" show="$ctrl.show" setshow="$ctrl.setShow(id)"></user-сart-item>
             </div>`,
             // controller: function($stateParams, $scope) {
-            //     $scope.letterId = $stateParams.letterId;
+            //     $scope.usersId = $stateParams.usersId;
             // }
+        });
+    })
+    .config(function($stateProvider) {
+        $stateProvider.state('userCartItem', {
+            parent: 'userCart',
+            url: '/:userId',
+            template: `<user-cart-item user-id="userId" />`,
+            controller: function($stateParams, $scope) {
+                $scope.userId = $stateParams.userId;
+            }
         });
 
     });
@@ -128,6 +138,7 @@ MailApp.service('MyMailBox', function($http) {
 
             this.setShow = (id) => {
               this.show = id
+              console.log(this.show)
               
             }
 
@@ -155,6 +166,19 @@ MailApp.service('MyMailBox', function($http) {
         },
         templateUrl: 'templates/letterItem.html'
     })
+    .component('addLetterBtn', {
+      bindings: {
+
+      },
+      templateUrl: 'templates/addLetterBtn.html'
+    })
+    .component('newLetterForm', {
+      bindings: {
+        newletter: '=',
+        send: '&'
+      },
+      templateUrl: 'templates/newLetterForm.html'
+    })
     .component('contactBtn', {
       bindings: {
         getcontacts: '&'
@@ -164,7 +188,9 @@ MailApp.service('MyMailBox', function($http) {
     .component('userCartItem', {
       bindings: {
         user: '<',
-        remove: '&'
+        remove: '&',
+        setshow: '&',
+        show: '<'
       },
       templateUrl: 'templates/userItemTemplate.html'
     });

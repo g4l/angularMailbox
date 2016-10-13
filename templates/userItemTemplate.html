@@ -1,10 +1,10 @@
 <div class="panel panel-info">
-  <div class="panel-heading">
+  <div class="panel-heading" ng-click="$ctrl.setshow({id:$ctrl.user._id})" ui-sref="userCartItem({userId:$ctrl.user._id})">
     <img ng-src="{{$ctrl.user.avatarUrl}}" alt="{{$ctrl.user.fullName}}">
     <h3 class="panel-title">{{$ctrl.user.fullName}}</h3>
     <button class="destroy" ng-click="$ctrl.remove({user:$ctrl.user})"></button>
   </div>
-  <div class="panel-body">
+  <div class="panel-body" ng-if="$ctrl.show == $ctrl.user._id">
     <div class="row">
       <div class=" col-md-9 col-lg-9 ">
         <table class="table table-user-information">
