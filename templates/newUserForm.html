@@ -1,0 +1,15 @@
+<form ng-submit="$ctrl.addUser()" >
+	<label>Name</label>
+    <input class="form-control" placeholder="Name" ng-model="$ctrl.newFullName"></input>
+    <label>E-mail</label>
+    <input class="form-control" placeholder="E-mail" ng-model="$ctrl.newEmail"></input>
+    <label>Avatar Url</label>
+    <input class="form-control" placeholder="AvatarURL" ng-model="$ctrl.newAvatarUrl"></input>
+    <label>Birthdate</label>
+    <input class="form-control" placeholder="Birthdate" ng-model="$ctrl.newBirthdate"></input>
+    <label>Gender</label>
+    <input class="form-control" placeholder="Gender" ng-model="$ctrl.newGender"></input>
+    <label>Address</label>
+    <input class="form-control" placeholder="Address" ng-model="$ctrl.newAddress"></input>
+    <button ng-submit="$ctrl.addUser()" class="btn btn-primary">OK</button>
+</form>

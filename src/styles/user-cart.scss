@@ -16,12 +16,11 @@
     transition: color 0.2s ease-out;
     background: none;
     border: 0;
-}
-
-.destroy:hover {
-    color: #af5b5e;
-}
-
-.destroy:after {
-    content: '×';
+    
+    &:hover {
+        color: #af5b5e;
+    }
+    &:after {
+        content: '×';
+    }
 }

@@ -52,12 +52,12 @@ MailApp.service('MyMailBox', function($http) {
     .config(function($stateProvider) {
         $stateProvider.state('userCart', {
             url: 'users',
-            template: `<div ng-repeat = "user in $ctrl.users">
+            template: `
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"  ng-click="$ctrl.setModal('2')">Новый контакт</button>
+            <br/>
+            <div ng-repeat = "user in $ctrl.users">
               <user-cart-item user="user" remove="$ctrl.removeUser(user)" show="$ctrl.show" setshow="$ctrl.setShow(id)"></user-сart-item>
-            </div>`,
-            // controller: function($stateParams, $scope) {
-            //     $scope.usersId = $stateParams.usersId;
-            // }
+            </div>`
         });
     })
     .config(function($stateProvider) {
@@ -70,7 +70,14 @@ MailApp.service('MyMailBox', function($http) {
             }
         });
 
-    });
+    })
+    // .config(function($stateProvider) {
+    //     $stateProvider.state('modalAddLetter', {
+    //         url: '/addletter',
+    //         template: `<new-letter-form />`,
+    //     });
+
+    // });
 
     MailApp.component('mailwrapper', {
         templateUrl: 'templates/mailwrapper.html',
@@ -79,6 +86,7 @@ MailApp.service('MyMailBox', function($http) {
             MyMailBox.getAllLetters().then(mails => {
                 this.mails = mails
             });
+
             MyMailBox.getMailCategories().then(mailcategories => {
 
                 this.mailcategories = mailcategories;
@@ -138,8 +146,10 @@ MailApp.service('MyMailBox', function($http) {
 
             this.setShow = (id) => {
               this.show = id
-              console.log(this.show)
-              
+            }
+            this.setModal = (id) => {
+              this.modal = id
+              console.log(this.modal)
             }
 
             this.removeUser = (user) => {
@@ -168,7 +178,7 @@ MailApp.service('MyMailBox', function($http) {
     })
     .component('addLetterBtn', {
       bindings: {
-
+        setmodal: '&'
       },
       templateUrl: 'templates/addLetterBtn.html'
     })
@@ -190,7 +200,20 @@ MailApp.service('MyMailBox', function($http) {
         user: '<',
         remove: '&',
         setshow: '&',
-        show: '<'
+        show: '<',
       },
       templateUrl: 'templates/userItemTemplate.html'
+    })
+    .component('newUserForm', {
+      bindings: {
+        newletter: '=',
+        send: '&'
+      },
+      templateUrl: 'templates/newUserForm.html'
+    })
+    .component('modal', {
+      bindings: {
+        modal: '<'
+      },
+      templateUrl: 'templates/modalwrapper.html'
     });
