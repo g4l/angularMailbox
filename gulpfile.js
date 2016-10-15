@@ -20,10 +20,10 @@ gulp.task('sass', function(){
 gulp.task('js', function(){
 	gulp.src("./src/scripts/**/*.js")
 	.pipe(concat('scripts.js'))
-	.pipe(babel({
-	    presets: ['es2015']
-	}))
-	.pipe(uglify({mangle: false}))
+	// .pipe(babel({
+	//     presets: ['es2015']
+	// }))
+	// .pipe(uglify({mangle: false}))
 	.pipe(gulp.dest('./dist/scripts'));
 });
 

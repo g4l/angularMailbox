@@ -1,1 +1,219 @@
-"use strict";MailApp.service("MyMailBox",function($http){this.getAllLetters=function(){return $http.get("https://test-api.javascript.ru/v1/avoznuk2/letters").then(function(response){return response.data})},this.getMailCategories=function(){return $http.get("//test-api.javascript.ru/v1/avoznuk2/mailboxes").then(function(response){return response.data})},this.addLetter=function(mail){return $http.post("//test-api.javascript.ru/v1/avoznuk2/letters",mail).then(function(response){return response.data})},this.getAll=function(){return $http.get("//test-api.javascript.ru/v1/avoznuk2/users").then(function(response){return response.data})},this.addUser=function(user){return $http.post("//test-api.javascript.ru/v1/avoznuk2/users",user).then(function(response){return response.data})},this.remove=function(user){return $http.delete("//test-api.javascript.ru/v1/avoznuk2/users/"+user._id)}}),MailApp.config(function($stateProvider){$stateProvider.state("category",{url:"category/:categoryId",template:'\n            <mailview category-id="categoryId" ng-repeat="letter in $ctrl.letters" letter="letter"  show="$ctrl.show" setshow="$ctrl.setShow(id)"></mailview>',controller:function($stateParams,$scope){$scope.categoryId=$stateParams.categoryId}})}).config(function($stateProvider){$stateProvider.state("mailview",{parent:"category",url:"/:letterId",template:'<mailview letter-id="letterId"/>',controller:function($stateParams,$scope){$scope.letterId=$stateParams.letterId}})}).config(function($stateProvider){$stateProvider.state("userCart",{url:"users",template:'\n            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"  ng-click="$ctrl.setModal(\'2\')">Новый контакт</button>\n            <br/>\n            <div ng-repeat = "user in $ctrl.users">\n              <user-cart-item user="user" remove="$ctrl.removeUser(user)" show="$ctrl.show" setshow="$ctrl.setShow(id)"></user-сart-item>\n            </div>'})}).config(function($stateProvider){$stateProvider.state("userCartItem",{parent:"userCart",url:"/:userId",template:'<user-cart-item user-id="userId" />',controller:function($stateParams,$scope){$scope.userId=$stateParams.userId}})}),MailApp.component("mailwrapper",{templateUrl:"templates/mailwrapper.html",controller:function(MyMailBox,$http){var _this=this;MyMailBox.getAllLetters().then(function(mails){_this.mails=mails}),MyMailBox.getMailCategories().then(function(mailcategories){_this.mailcategories=mailcategories}),this.getLetters=function(id){_this.letters=_this.mails.filter(function(mail){return mail.mailbox==id})},this.addMail=function(letter){console.log(letter);var newMail={subject:_this.newSubject.trim(),body:_this.newBody.trim(),to:_this.newTo.trim(),mailbox:_this.mailcategories[1]._id};newMail.subject&&newMail.body&&newMail.to&&MyMailBox.addLetter(newMail).then(function(mail){_this.mails.push(mail),_this.newSubject=_this.newBody=_this.newBody=_this.newTo=""})},this.getAllUsers=function(){MyMailBox.getAll().then(function(users){return _this.users=users})},this.addUser=function(){var newUser={fullName:_this.newFullName.trim(),email:_this.newEmail.trim(),avatarUrl:_this.newAvatarUrl.trim(),birthdate:_this.newBirthdate.trim(),gender:_this.newGender.trim(),address:_this.newAddress.trim()};newUser.fullName&&newUser.email&&MyMailBox.addUser(newUser).then(function(user){_this.users.push(user),_this.newFullName=_this.newEmail=_this.newAvatarUrl=_this.newBirthdate=_this.newGender=_this.newAddress=""})},this.setShow=function(id){_this.show=id},this.setModal=function(id){_this.modal=id,console.log(_this.modal)},this.removeUser=function(user){MyMailBox.remove(user).then(function(){_this.users.splice(_this.users.indexOf(user),1)})}}}).component("mailcategories",{bindings:{mailcategory:"<",getletters:"&"},templateUrl:"templates/mailCategoryTemplate.html"}).component("mailview",{bindings:{letter:"<",setshow:"&",show:"<"},templateUrl:"templates/letterItem.html"}).component("addLetterBtn",{bindings:{setmodal:"&"},templateUrl:"templates/addLetterBtn.html"}).component("newLetterForm",{bindings:{newletter:"&",send:"&",modal:"<"},templateUrl:"templates/newLetterForm.html"}).component("contactBtn",{bindings:{getcontacts:"&"},templateUrl:"templates/contactBtn.html"}).component("userCartItem",{bindings:{user:"<",remove:"&",setshow:"&",show:"<"},templateUrl:"templates/userItemTemplate.html"}).component("newUserForm",{bindings:{newuser:"<",send:"&"},templateUrl:"templates/newUserForm.html"}).component("modal",{bindings:{modal:"<"},templateUrl:"templates/modalwrapper.html"});
+MailApp.component('mailwrapper', {
+    templateUrl: 'templates/mailwrapper.html',
+    controller: function(MyMailBox, MyUsers) {
+
+        MyMailBox.getAllLetters().then(mails => {
+            this.mails = mails
+        });
+
+        MyMailBox.getMailCategories().then(mailcategories => {
+
+            this.mailcategories = mailcategories;
+
+        })
+
+        this.getLetters = (id) => {
+
+            this.letters = this.mails.filter(function(mail) {
+                return mail.mailbox == id
+            })
+
+        }
+// remove
+        this.addMail = (letter) => {
+            console.log(letter)
+            let newMail = {
+                subject: this.newSubject.trim(),
+                body: this.newBody.trim(),
+                to: this.newTo.trim(),
+                mailbox: this.mailcategories[1]._id
+            };
+
+            if (newMail.subject && newMail.body && newMail.to) {
+
+                MyMailBox.addLetter(newMail).then((mail) => {
+                    this.mails.push(mail);
+                    this.newSubject = this.newBody = this.newBody = this.newTo = '';
+                });
+
+            }
+        };
+
+        this.getAllUsers = () => {
+            MyUsers.getAll().then(users => this.users = users);
+
+        }
+
+        this.addUser = () => {
+            let newUser = {
+                fullName: this.newFullName.trim(),
+                email: this.newEmail.trim(),
+                avatarUrl: this.newAvatarUrl.trim(),
+                birthdate: this.newBirthdate.trim(),
+                gender: this.newGender.trim(),
+                address: this.newAddress.trim()
+            };
+
+            if (newUser.fullName && newUser.email) {
+
+                MyUsers.addUser(newUser).then((user) => {
+
+                    this.users.push(user);
+                    this.newFullName = this.newEmail = this.newAvatarUrl = this.newBirthdate = this.newGender = this.newAddress = '';
+                });
+            }
+        };
+        this.removeUser = (user) => {
+            MyUsers.remove(user).then(() => {
+                this.users.splice(this.users.indexOf(user), 1);
+            })
+        };
+        // end remove
+
+        this.setShow = (id) => {
+            this.show = id
+        }
+        this.setModal = (id) => {
+            this.modal = id
+        }
+
+
+
+    }
+})
+
+
+.component('modal', {
+    bindings: {
+        modal: '<'
+    },
+    templateUrl: 'templates/modalwrapper.html'
+});
+MailApp
+    .service('MyMailBox', function($http) {
+
+        this.getAllLetters = () => {
+            return $http.get('https://test-api.javascript.ru/v1/avoznuk2/letters')
+                .then(response => response.data)
+        }
+        this.getMailCategories = () => {
+            return $http.get('//test-api.javascript.ru/v1/avoznuk2/mailboxes')
+                .then(response => response.data)
+        }
+
+        this.addLetter = (mail) => {
+            return $http.post('//test-api.javascript.ru/v1/avoznuk2/letters', mail)
+                .then(response => response.data)
+        }
+
+    });
+
+MailApp.config(function($stateProvider) {
+    $stateProvider.state('category', {
+        url: 'category/:categoryId',
+        template: `
+                <mailview category-id="categoryId" ng-repeat="letter in $ctrl.letters" letter="letter"  show="$ctrl.show" setshow="$ctrl.setShow(id)"></mailview>`,
+        controller: function($stateParams, $scope) {
+            $scope.categoryId = $stateParams.categoryId;
+        }
+    });
+
+})
+    .config(function($stateProvider) {
+        $stateProvider.state('mailview', {
+            parent: 'category',
+            url: '/:letterId',
+            template: `<mailview letter-id="letterId"/>`,
+            controller: function($stateParams, $scope) {
+                $scope.letterId = $stateParams.letterId;
+            }
+        });
+
+    })
+MailApp.component('mailcategories', {
+    bindings: {
+        mailcategory: '<',
+        getletters: '&'
+    },
+    templateUrl: 'templates/mailBox/mailCategoryTemplate.html',
+
+})
+    .component('mailview', {
+        bindings: {
+            letter: '<',
+            setshow: '&',
+            show: '<'
+        },
+        templateUrl: 'templates/mailBox/letterItem.html'
+    })
+    .component('addLetterBtn', {
+        bindings: {
+            setmodal: '&'
+        },
+        templateUrl: 'templates/mailBox/addLetterBtn.html'
+    })
+    .component('newLetterForm', {
+        bindings: {
+            newletter: '&',
+            send: '&',
+            modal: "<"
+        },
+        templateUrl: 'templates/mailBox/newLetterForm.html'
+    })
+MailApp.service('MyUsers', function($http) {
+    this.getAll = () => {
+        return $http.get('//test-api.javascript.ru/v1/avoznuk2/users').then(response => response.data)
+    }
+
+    this.addUser = (user) => {
+
+        return $http.post('//test-api.javascript.ru/v1/avoznuk2/users', user)
+            .then(response => response.data)
+    }
+    this.remove = (user) => {
+        return $http.delete('//test-api.javascript.ru/v1/avoznuk2/users/' + user._id);
+    }
+});
+
+MailApp.component('contactBtn', {
+    bindings: {
+        getcontacts: '&'
+    },
+    templateUrl: 'templates/userCard/contactBtn.html'
+})
+    .component('userCartItem', {
+        bindings: {
+            user: '<',
+            remove: '&',
+            setshow: '&',
+            show: '<',
+        },
+        templateUrl: 'templates/userCard/userItemTemplate.html'
+    })
+    .component('newUserForm', {
+        bindings: {
+            newuser: '<',
+            send: '&'
+
+        },
+        templateUrl: 'templates/userCard/newUserForm.html'
+    })
+MailApp.config(function($stateProvider) {
+    $stateProvider.state('userCart', {
+        url: 'users',
+        template: `
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"  ng-click="$ctrl.setModal('2')">Новый контакт</button>
+            <br/>
+            <div ng-repeat = "user in $ctrl.users">
+              <user-cart-item user="user" remove="$ctrl.removeUser(user)" show="$ctrl.show" setshow="$ctrl.setShow(id)"></user-сart-item>
+            </div>`
+    }).state('userCartItem', {
+        parent: 'userCart',
+        url: '/:userId',
+        template: `<user-cart-item user-id="userId" />`,
+        controller: function($stateParams, $scope) {
+            $scope.userId = $stateParams.userId;
+        }
+    });
+
+})

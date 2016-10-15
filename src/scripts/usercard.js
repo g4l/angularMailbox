@@ -1,68 +1,57 @@
-// MailApp
-// .service('MyUserCarts', function($http) {
-//     this.getAll = () => {
-//       return $http.get('https://test-api.javascript.ru/v1/avoznuk2/users').then(response => response.data)
-//     }
+MailApp.service('MyUsers', function($http) {
+    this.getAll = () => {
+        return $http.get('//test-api.javascript.ru/v1/avoznuk2/users').then(response => response.data)
+    }
 
-//     this.addUser = (user) => {
-    
-//       return $http.post('https://test-api.javascript.ru/v1/avoznuk2/users', user)
-//         .then(response => response.data)
-//     }
-//     this.remove = (user) => {
-//       return $http.delete('https://test-api.javascript.ru/v1/avoznuk2/users/' + user._id);
-//     }
-//   })
+    this.addUser = (user) => {
 
-// .component('userCart', {
-//         bindings: {
-//           user: '<'
-//         },
-//         templateUrl: 'templates/userCardTemplate.html',
-//         controller: function(MyUserCarts, $http) {
+        return $http.post('//test-api.javascript.ru/v1/avoznuk2/users', user)
+            .then(response => response.data)
+    }
+    this.remove = (user) => {
+        return $http.delete('//test-api.javascript.ru/v1/avoznuk2/users/' + user._id);
+    }
+});
 
-//           this.getAllUsers = () => {
-//             MyUserCarts.getAll().then(users => this.users = users);
-//             console.log(this.users)
-//           }
+MailApp.component('contactBtn', {
+    bindings: {
+        getcontacts: '&'
+    },
+    templateUrl: 'templates/userCard/contactBtn.html'
+})
+    .component('userCartItem', {
+        bindings: {
+            user: '<',
+            remove: '&',
+            setshow: '&',
+            show: '<',
+        },
+        templateUrl: 'templates/userCard/userItemTemplate.html'
+    })
+    .component('newUserForm', {
+        bindings: {
+            newuser: '<',
+            send: '&'
 
-//           this.addUser = () => {
-//             let newUser = {
-//               fullName: this.newFullName.trim(),
-//               email: this.newEmail.trim(),
-//               avatarUrl: this.newAvatarUrl.trim(),
-//               birthdate: this.newBirthdate.trim(),
-//               gender: this.newGender.trim(),
-//               address: this.newAddress.trim()
-//             };
+        },
+        templateUrl: 'templates/userCard/newUserForm.html'
+    })
+MailApp.config(function($stateProvider) {
+    $stateProvider.state('userCart', {
+        url: 'users',
+        template: `
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"  ng-click="$ctrl.setModal('2')">Новый контакт</button>
+            <br/>
+            <div ng-repeat = "user in $ctrl.users">
+              <user-cart-item user="user" remove="$ctrl.removeUser(user)" show="$ctrl.show" setshow="$ctrl.setShow(id)"></user-сart-item>
+            </div>`
+    }).state('userCartItem', {
+        parent: 'userCart',
+        url: '/:userId',
+        template: `<user-cart-item user-id="userId" />`,
+        controller: function($stateParams, $scope) {
+            $scope.userId = $stateParams.userId;
+        }
+    });
 
-//             if (newUser.fullName && newUser.email) {
-
-//               MyUserCarts.addUser(newUser).then((user) => {
-
-//                 this.users.push(user);
-//                 this.newFullName = this.newEmail = this.newAvatarUrl = this.newBirthdate = this.newGender = this.newAddress = '';
-//               });
-//             }
-//           };
-
-//           this.removeUser = (user) => {
-//             MyUserCarts.remove(user).then(() => {
-//               this.users.splice(this.users.indexOf(user), 1);
-//             })
-//           };
-//         }
-//       })
-// .component('contactBtn', {
-//   bindings: {
-//     getcontacts: '&'
-//   },
-//   templateUrl: 'templates/contactBtn.html'
-// })
-// .component('userCartItem', {
-//   bindings: {
-//     user: '<',
-//     remove: '&'
-//   },
-//   templateUrl: 'templates/userItemTemplate.html'
-// });
+})
