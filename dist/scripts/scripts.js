@@ -89,6 +89,18 @@ MailApp.component('mailwrapper', {
     },
     templateUrl: 'templates/modalwrapper.html'
 });
+// MailApp.config(function($stateProvider){
+// 	$stateProvider.state('loginPage', {
+// 		url: '/',
+// 		template: `<login-page/>`
+// 	});
+// });
+// MailApp.component('loginPage', {
+// 	templateUrl: 'templates/loginPage.html',
+// 	controller: function($state){
+// 		$state.go('#/')
+// 	}
+// })
 MailApp
     .service('MyMailBox', function($http) {
 
@@ -109,7 +121,15 @@ MailApp
     });
 
 MailApp.config(function($stateProvider) {
+    $stateProvider.state('mailwrapper', {
+        url: '/',
+        template: `<mailwrapper></mailwrapper>`
+    });
+
+})
+.config(function($stateProvider) {
     $stateProvider.state('category', {
+        parent: 'mailwrapper',
         url: 'category/:categoryId',
         template: `
                 <mailview category-id="categoryId" ng-repeat="letter in $ctrl.letters" letter="letter"  show="$ctrl.show" setshow="$ctrl.setShow(id)"></mailview>`,
@@ -126,6 +146,7 @@ MailApp.config(function($stateProvider) {
             template: `<mailview letter-id="letterId"/>`,
             controller: function($stateParams, $scope) {
                 $scope.letterId = $stateParams.letterId;
+                $scope.show = $stateParams.letterId;
             }
         });
 
@@ -201,6 +222,7 @@ MailApp.component('contactBtn', {
 MailApp.config(function($stateProvider) {
     $stateProvider.state('userCart', {
         url: 'users',
+        parent: 'mailwrapper',
         template: `
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"  ng-click="$ctrl.setModal('2')">Новый контакт</button>
             <br/>
