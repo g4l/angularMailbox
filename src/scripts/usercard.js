@@ -38,7 +38,7 @@ MailApp.component('contactBtn', {
     })
 MailApp.config(function($stateProvider) {
     $stateProvider.state('userCart', {
-        url: 'users',
+        url: '/users',
         parent: 'mailwrapper',
         template: `
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"  ng-click="$ctrl.setModal('2')">Новый контакт</button>

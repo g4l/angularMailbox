@@ -1,3 +1,10 @@
+MailApp.config(function($stateProvider) {
+    $stateProvider.state('mailwrapper', {
+        url: 'mailbox',
+        template: `<mailwrapper></mailwrapper>`
+    });
+
+})
 MailApp.component('mailwrapper', {
     templateUrl: 'templates/mailwrapper.html',
     controller: function(MyMailBox, MyUsers) {
@@ -89,18 +96,42 @@ MailApp.component('mailwrapper', {
     },
     templateUrl: 'templates/modalwrapper.html'
 });
-// MailApp.config(function($stateProvider){
-// 	$stateProvider.state('loginPage', {
-// 		url: '/',
-// 		template: `<login-page/>`
-// 	});
-// });
-// MailApp.component('loginPage', {
-// 	templateUrl: 'templates/loginPage.html',
-// 	controller: function($state){
-// 		$state.go('#/')
-// 	}
-// })
+MailApp.service('loginService', function($state){
+	let admin = {
+		email: 'test1@ukr.net',
+		password: '12345'
+	}
+	this.testLogin = (user) => {
+		if(user.email == admin.email && user.password == admin.password){
+			console.log('yes')
+			$state.go('mailwrapper')
+		} else {
+			alert('Не правильный пароль или логин')
+		}
+	}
+
+});
+MailApp.config(function($stateProvider){
+	$stateProvider.state('loginPage', {
+		url: '/',
+		template: `<login-page/>`
+	});
+});
+MailApp.component('loginPage', {
+	templateUrl: 'templates/loginPage.html',
+	controller: function(loginService, $state){
+		this.login = () => {
+	
+			let userLogin = {
+				email: this.userEmail,
+				password: this.userPassword
+			};
+			if (!!userLogin.email && !!userLogin.password) {
+				loginService.testLogin(userLogin)
+			} 
+		}
+	}
+})
 MailApp
     .service('MyMailBox', function($http) {
 
@@ -120,17 +151,11 @@ MailApp
 
     });
 
-MailApp.config(function($stateProvider) {
-    $stateProvider.state('mailwrapper', {
-        url: '/',
-        template: `<mailwrapper></mailwrapper>`
-    });
-
-})
+MailApp
 .config(function($stateProvider) {
     $stateProvider.state('category', {
         parent: 'mailwrapper',
-        url: 'category/:categoryId',
+        url: '/category/:categoryId',
         template: `
                 <mailview category-id="categoryId" ng-repeat="letter in $ctrl.letters" letter="letter"  show="$ctrl.show" setshow="$ctrl.setShow(id)"></mailview>`,
         controller: function($stateParams, $scope) {
@@ -221,7 +246,7 @@ MailApp.component('contactBtn', {
     })
 MailApp.config(function($stateProvider) {
     $stateProvider.state('userCart', {
-        url: 'users',
+        url: '/users',
         parent: 'mailwrapper',
         template: `
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"  ng-click="$ctrl.setModal('2')">Новый контакт</button>

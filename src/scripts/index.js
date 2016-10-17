@@ -1,3 +1,10 @@
+MailApp.config(function($stateProvider) {
+    $stateProvider.state('mailwrapper', {
+        url: 'mailbox',
+        template: `<mailwrapper></mailwrapper>`
+    });
+
+})
 MailApp.component('mailwrapper', {
     templateUrl: 'templates/mailwrapper.html',
     controller: function(MyMailBox, MyUsers) {

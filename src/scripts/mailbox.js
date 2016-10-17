@@ -17,17 +17,11 @@ MailApp
 
     });
 
-MailApp.config(function($stateProvider) {
-    $stateProvider.state('mailwrapper', {
-        url: '/',
-        template: `<mailwrapper></mailwrapper>`
-    });
-
-})
+MailApp
 .config(function($stateProvider) {
     $stateProvider.state('category', {
         parent: 'mailwrapper',
-        url: 'category/:categoryId',
+        url: '/category/:categoryId',
         template: `
                 <mailview category-id="categoryId" ng-repeat="letter in $ctrl.letters" letter="letter"  show="$ctrl.show" setshow="$ctrl.setShow(id)"></mailview>`,
         controller: function($stateParams, $scope) {
