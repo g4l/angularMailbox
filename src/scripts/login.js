@@ -17,7 +17,7 @@ MailApp.config(function($stateProvider, $locationProvider){
 		url: '/',
 		template: `<login-page/>`
 	});
-	$locationProvider.html5Mode(true);
+	// $locationProvider.html5Mode(true);
 });
 MailApp.component('loginPage', {
 	templateUrl: 'templates/loginPage.html',
