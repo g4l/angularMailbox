@@ -12,11 +12,12 @@ MailApp.service('loginService', function($state){
 	}
 
 });
-MailApp.config(function($stateProvider){
+MailApp.config(function($stateProvider, $locationProvider){
 	$stateProvider.state('loginPage', {
 		url: '/',
 		template: `<login-page/>`
 	});
+	// $locationProvider.html5Mode(true);
 });
 MailApp.component('loginPage', {
 	templateUrl: 'templates/loginPage.html',

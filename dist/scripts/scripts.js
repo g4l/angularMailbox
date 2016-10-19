@@ -103,7 +103,6 @@ MailApp.service('loginService', function($state){
 	}
 	this.testLogin = (user) => {
 		if(user.email == admin.email && user.password == admin.password){
-			console.log('yes')
 			$state.go('mailwrapper')
 		} else {
 			alert('Не правильный пароль или логин')
@@ -111,11 +110,12 @@ MailApp.service('loginService', function($state){
 	}
 
 });
-MailApp.config(function($stateProvider){
+MailApp.config(function($stateProvider, $locationProvider){
 	$stateProvider.state('loginPage', {
 		url: '/',
 		template: `<login-page/>`
 	});
+	// $locationProvider.html5Mode(true);
 });
 MailApp.component('loginPage', {
 	templateUrl: 'templates/loginPage.html',
