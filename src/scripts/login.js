@@ -5,7 +5,6 @@ MailApp.service('loginService', function($state){
 	}
 	this.testLogin = (user) => {
 		if(user.email == admin.email && user.password == admin.password){
-			console.log('yes')
 			$state.go('mailwrapper')
 		} else {
 			alert('Не правильный пароль или логин')
