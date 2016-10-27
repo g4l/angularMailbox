@@ -1,4 +1,4 @@
-module.export = {
+module.exports = {
 	context: __dirname + '/src',
 	entry: './scripts/index.js',
 	output: {
