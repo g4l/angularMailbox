@@ -1,6 +1,6 @@
 import angular from 'angular';
 import ContactsComponent from './contacts.component.js';
-import ContactsDataSvc from './contacts.service.js'
+import ContactsData from './contacts.service.js'
 
 // let ContactsModule = angular.module('contacts', [ContactModule, CreateContactModule])
 // 	.component('contacts', ContactsComponent)

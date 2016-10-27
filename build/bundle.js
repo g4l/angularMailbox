@@ -19069,6 +19069,14 @@
 
 	var _angular2 = _interopRequireDefault(_angular);
 
+	var _contactsComponent = __webpack_require__(5);
+
+	var _contactsComponent2 = _interopRequireDefault(_contactsComponent);
+
+	var _contactsService = __webpack_require__(8);
+
+	var _contactsService2 = _interopRequireDefault(_contactsService);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	// let ContactsModule = angular.module('contacts', [ContactModule, CreateContactModule])
@@ -19081,6 +19089,96 @@
 	};
 
 	exports.default = ContactsModule;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _contactsView = __webpack_require__(6);
+
+	var _contactsView2 = _interopRequireDefault(_contactsView);
+
+	var _contactsController = __webpack_require__(7);
+
+	var _contactsController2 = _interopRequireDefault(_contactsController);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// import './contacts.css';
+
+	var ContactsComponent = {
+		template: _contactsView2.default, controller: _contactsController2.default
+	};
+
+	exports.default = ContactsComponent;
+
+/***/ },
+/* 6 */
+/***/ function(module, exports) {
+
+	module.exports = ""
+
+/***/ },
+/* 7 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+/***/ },
+/* 8 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var ContactsData = function () {
+	    function ContactsData($http) {
+	        _classCallCheck(this, ContactsData);
+
+	        this.$http = $http;
+	    }
+
+	    _createClass(ContactsData, [{
+	        key: 'getAllUser',
+	        value: function getAllUser() {
+	            return this.$http.get('//test-api.javascript.ru/v1/avoznuk2/users').then(function (response) {
+	                return response.data;
+	            });
+	        }
+	    }, {
+	        key: 'addUser',
+	        value: function addUser(user) {
+
+	            return this.$http.post('//test-api.javascript.ru/v1/avoznuk2/users', user).then(function (response) {
+	                return response.data;
+	            });
+	        }
+	    }, {
+	        key: 'removeUser',
+	        value: function removeUser(user) {
+	            return this.$http.delete('//test-api.javascript.ru/v1/avoznuk2/users/' + user._id);
+	        }
+	    }]);
+
+	    return ContactsData;
+	}();
+
+	ContactsData.$inject = ['$http'];
+
+	exports.default = ContactsData;
 
 /***/ }
 /******/ ]);

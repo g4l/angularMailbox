@@ -3,7 +3,7 @@ class ContactsData {
         this.$http = $http;
     }
 
-    getAllUser() {
+    getAllUsers() {
         return this.$http.get('//test-api.javascript.ru/v1/avoznuk2/users').then(response => response.data)
     }
 
